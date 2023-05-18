@@ -20,7 +20,8 @@
 			echo "<p>Database connection failure</p>";
 	    	} 
 	    	else {
-			$query = "SELECT * FROM `CompetitionEnrolments` WHERE `archer_id` = '$archer_id' "; //need login id global variable
+			$query = "SELECT `competition_name` FROM Competitions WHERE `competition_id` IN
+				(SELECT `competition_id` FROM `CompetitionEnrolments` WHERE `archer_id` = '$archer_id') "; //need login id global variable
 			$enrolments =  mysqli_query($conn, $query);
 		}	
 	  ?>
@@ -33,7 +34,7 @@
                         $enrolments,MYSQLI_ASSOC)):;
             ?>
                 <option value="<?php echo $competition["competition_id"]; ?>">
-                    <?php echo $competition["competition_id"]; ?>
+                    <?php echo $competition["competition_name"]; ?>
                 </option>
             <?php
                 endwhile;
