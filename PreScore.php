@@ -10,6 +10,8 @@
   </head>
   <body>
  	  <?php include 'includes/header.inc'; ?>
+	    require_once "settings.php";
+	     $conn = @mysqli_connect($host,$user,$pwd,$sql_db);
     
 
   </body>
