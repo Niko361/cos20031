@@ -18,10 +18,11 @@
 		if (!$conn) {
 			// Displays an error message
 			echo "<p>Database connection failure</p>";
-	    	} 
-	    	else {
-			$query = "SELECT `competition_name` FROM Competitions WHERE `competition_id` IN
-				(SELECT `competition_id` FROM `CompetitionEnrolments` WHERE `archer_id` = '$archer_id') "; //need login id global variable
+    } 
+    else {
+			$query = "SELECT `event_name` FROM Events WHERE `event_id` IN
+        (SELECT `event_id` FROM Competitions WHERE `competition_id` IN
+				(SELECT `competition_id` FROM `CompetitionEnrolments` WHERE `archer_id` = '$archer_id')) "; //need login id global variable
 			$enrolments =  mysqli_query($conn, $query);
 		}	
 	  ?>
