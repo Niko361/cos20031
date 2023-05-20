@@ -5,7 +5,6 @@
     <meta name="description" content="ScoreSheet" />
     <meta name="keywords" 	 content="HTML, CSS, JS" />
     <meta name="author"		 content="Halim" />
-    <meta name="script source"		 content="http://jsfiddle.net/ZRQPP/" />  
     <link rel = "stylesheet" href ="styles/style.css">
     <title> Score Sheet </title>
   </head>
@@ -15,6 +14,7 @@
           display:table;
           border-collapse:separate;
           border-spacing:2px;
+          width: 500px;
         }
         .thead
         {
@@ -37,40 +37,13 @@
           border:1px solid black;
           padding:1px;
         }
-        .tr.editing .td INPUT
+        .tr.editing .td input
         {
           width:100px;
         }
     </style>
-    <script>
-        function edit(element){
-          var tr = jQuery(element).parent().parent();
-          if(!tr.hasClass("editing")) {
-            tr.addClass("editing");
-            tr.find("DIV.td").each(function(){
-              if(!jQuery(this).hasClass("action")){
-                var value = jQuery(this).text();
-                jQuery(this).text("");
-                jQuery(this).append('<input type="text" value="'+value+'" />');
-              } else {
-                jQuery(this).find("BUTTON").text("save");
-              }
-            });
-          } else {
-            tr.removeClass("editing");
-            tr.find("DIV.td").each(function(){
-              if(!jQuery(this).hasClass("action")){
-                var value = jQuery(this).find("INPUT").val();
-                jQuery(this).text(value);
-                jQuery(this).find("INPUT").remove();
-              } else {
-                jQuery(this).find("BUTTON").text("edit");
-              }
-            });
-          }
-        }
-      </script>
   <body>
+
  	  <?php include 'includes/header.inc'; ?>
     <?php
     if (isset($_POST["Competition"])){
@@ -88,6 +61,8 @@
        $query = "SELECT `round_def_id` FROM `Competitions` WHERE `competition_id` = '$competition'";
     $Round = mysqli_fetch_array(mysqli_query($conn, $query))['round_def_id'];
     ?>
+    <div class="centred">
+    <h1 style="text-align: center">Submit Score</h1>
     <?php
     for($RangeNum=1; $RangeNum<=$RangeCount; $RangeNum++)
     {
@@ -105,7 +80,6 @@
             <div class="td">Arrow 4</div>
             <div class="td">Arrow 5</div>
             <div class="td">Arrow 6</div>
-            <div class="td"></div>
           </div>
         </div>
       ';
@@ -118,13 +92,12 @@
           {
               echo ' <form class="tr"> 
                     <div class="thead">End ' . $EndNum . '</div>
-                     <div class="td">Arrow 1</div>
-                     <div class="td">Arrow 2</div>
-                     <div class="td">Arrow 3</div>
-                     <div class="td">Arrow 4</div>
-                     <div class="td">Arrow 5</div>
-                     <div class="td">Arrow 6</div>
-                     <div class="td action"><button type="button" onclick="edit(this);">edit</button></div>
+                     <div class="td"><input form="tr" type="text" name="' . $RangeNum .'_' . $EndNum . '_1" value="0" maxlength="2" size="2"/></div>
+                     <div class="td"><input form="tr" type="text" name="' . $RangeNum .'_' . $EndNum . '_2" value="0" maxlength="2" size="2"/></div>
+                     <div class="td"><input form="tr" type="text" name="' . $RangeNum .'_' . $EndNum . '_3" value="0" maxlength="2" size="2"/></div>
+                     <div class="td"><input form="tr" type="text" name="' . $RangeNum .'_' . $EndNum . '_4" value="0" maxlength="2" size="2"/></div>
+                     <div class="td"><input form="tr" type="text" name="' . $RangeNum .'_' . $EndNum . '_5" value="0" maxlength="2" size="2"/></div>
+                     <div class="td"><input form="tr" type="text" name="' . $RangeNum .'_' . $EndNum . '_6" value="0" maxlength="2" size="2"/></div>
                      </form>';
               
           }
@@ -134,6 +107,6 @@
           ";
     }
     ?>
-
+    </div>
   </body>
 </html>

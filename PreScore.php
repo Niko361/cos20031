@@ -28,11 +28,13 @@
       $enrolments =  mysqli_query($conn, $query);
 		}	
 	  ?>
-		
+		<div class="centred">
+    <h1 style="text-align: center">Submit Score</h1>
 	  <form method="POST" action="ScoreSheet.php"  novalidate="novalidate">
-        <label>Select Competition</label>
+        <label>Select Competition: </label>
         <select name="Competition">
             <?php
+              
                 while ($competition = mysqli_fetch_array(
                         $enrolments,MYSQLI_ASSOC)):;
             ?>
@@ -41,10 +43,12 @@
                 </option>
             <?php
                 endwhile;
+                
             ?>
         </select>
         <br>
-        <input type="submit" value="submit" name="submit">
+        <input type="submit" value="NEXT" name="submit" style="margin-top: 10px">
     </form>
+    </div>
   </body>
 </html>
