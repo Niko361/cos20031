@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="description" content="ScoreSheet" />
-    <meta name="keywords" 	 content="HTML, CSS", "JS" />
+    <meta name="keywords" 	 content="HTML, CSS, JS" />
     <meta name="author"		 content="Halim" />
     <meta name="script source"		 content="http://jsfiddle.net/ZRQPP/" />  
     <link rel = "stylesheet" href ="styles/style.css">
@@ -43,7 +43,7 @@
         }
     </style>
     <script>
-                function edit(element){
+        function edit(element){
           var tr = jQuery(element).parent().parent();
           if(!tr.hasClass("editing")) {
             tr.addClass("editing");
@@ -72,6 +72,7 @@
       </script>
   <body>
  	  <?php include 'includes/header.inc'; ?>
+    <?php
     if (isset($_POST["Competition"])){
         $competition = ($_POST["Competition"]);
         $_SESSION["competition"] = $competition;
@@ -80,22 +81,24 @@
 	     $conn = @mysqli_connect($host,$user,$pwd,$sql_db);
         // find out how many ranges in competition's round
          $query = "SELECT COUNT(*) FROM RoundRange WHERE `round_def_id` IN
-				(SELECT `round_def_id` FROM `Competition` WHERE `competition_id` = '$competition') ";
-          $RangeCount = mysqli_query($conn, $query);
+				(SELECT `round_def_id` FROM `Competitions` WHERE `competition_id` = '$competition') ";
+          $RangeCount = mysqli_fetch_array(mysqli_query($conn, $query))[0];
     
     // find out competition's round
-       $query = "SELECT `round_def_id` FROM `Competition` WHERE `competition_id` = '$competition'";
-    $Round = mysqli_query($conn, $query);
+       $query = "SELECT `round_def_id` FROM `Competitions` WHERE `competition_id` = '$competition'";
+    $Round = mysqli_fetch_array(mysqli_query($conn, $query))['round_def_id'];
+    ?>
     <?php
-    for($RangeNum=0; $RangeNum<=$RangeCount; $RangeNum++)
+    for($RangeNum=1; $RangeNum<=$RangeCount; $RangeNum++)
     {
-    $query = "SELECT `target_distance` FROM `RoundRange` WHERE `range_number` = $RangeNum AND `round_def_id` = '$Round'";
-    $RangeDistance = mysqli_query($conn, $query);
-      echo " 
-      <h2> Range '$RangeNum', '$RangeDistance' Metres</h2>
+    $query = "SELECT `target_distance` FROM `RoundRange` WHERE `range_number` = '$RangeNum' AND `round_def_id` = '$Round'";
+    $RangeDistance = mysqli_fetch_array(mysqli_query($conn, $query))['target_distance'];
+      echo ' 
+      <h2> Range ' . $RangeNum . ', ' . $RangeDistance . ' Metres</h2>
       <div class="table">
         <div class="thead">
           <div class="tr">
+            <div class="td"></div>
             <div class="td">Arrow 1</div>
             <div class="td">Arrow 2</div>
             <div class="td">Arrow 3</div>
@@ -105,16 +108,16 @@
             <div class="td"></div>
           </div>
         </div>
-      ";
-        $query = "SELECT `EndCount` FROM RoundRange WHERE `range_number` = $RangeNum AND `round_def_id` = '$Round'";
-          $EndCount = mysqli_query($conn, $query);
-          echo " 
+      ';
+        $query = "SELECT `end_count` FROM RoundRange WHERE `range_number` = $RangeNum AND `round_def_id` = '$Round'";
+          $EndCount = mysqli_fetch_array(mysqli_query($conn, $query))['end_count'];
+          echo ' 
             <div class="tbody">
-          ";
-          for($EndNum=0; $EndNum<=$EndCount; $EndNum++)
+          ';
+          for($EndNum=1; $EndNum<=$EndCount; $EndNum++)
           {
-              echo " <form class="tr"> 
-                    <div class="th">End $EndNum</div>
+              echo ' <form class="tr"> 
+                    <div class="thead">End ' . $EndNum . '</div>
                      <div class="td">Arrow 1</div>
                      <div class="td">Arrow 2</div>
                      <div class="td">Arrow 3</div>
@@ -122,7 +125,7 @@
                      <div class="td">Arrow 5</div>
                      <div class="td">Arrow 6</div>
                      <div class="td action"><button type="button" onclick="edit(this);">edit</button></div>
-              ";
+                     </form>';
               
           }
          echo " 
