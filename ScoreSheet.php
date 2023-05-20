@@ -3,8 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="description" content="ScoreSheet" />
-    <meta name="keywords" 	 content="HTML, CSS" />
+    <meta name="keywords" 	 content="HTML, CSS", "JS" />
     <meta name="author"		 content="Halim" />
+    <meta name="script source"		 content="http://jsfiddle.net/ZRQPP/" />  
     <link rel = "stylesheet" href ="styles/style.css">
     <title> Score Sheet </title>
   </head>
