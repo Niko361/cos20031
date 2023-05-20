@@ -20,10 +20,12 @@
 			echo "<p>Database connection failure</p>";
     } 
     else {
-			$query = "SELECT `event_name` FROM Events WHERE `event_id` IN
-        (SELECT `event_id` FROM Competitions WHERE `competition_id` IN
-				(SELECT `competition_id` FROM `CompetitionEnrolments` WHERE `archer_id` = '$archer_id')) "; //need login id global variable
-			$enrolments =  mysqli_query($conn, $query);
+			$query = //"SELECT `competition_id`, `event_name` FROM Events WHERE `event_id` IN
+        //(SELECT `event_id` FROM Competitions WHERE `competition_id` IN
+				//(SELECT `competition_id` FROM `CompetitionEnrolments` WHERE `archer_id` = '1')) "; //need login id global variable
+			"SELECT Events.event_name, Competitions.competition_id FROM Competitions JOIN Events ON Competitions.event_id = Events.event_id WHERE `competition_id` IN
+      (SELECT `competition_id` FROM `CompetitionEnrolments` WHERE `archer_id` = '1')";
+      $enrolments =  mysqli_query($conn, $query);
 		}	
 	  ?>
 		
@@ -35,7 +37,7 @@
                         $enrolments,MYSQLI_ASSOC)):;
             ?>
                 <option value="<?php echo $competition["competition_id"]; ?>">
-                    <?php echo $competition["competition_name"]; ?>
+                    <?php echo $competition["event_name"]; ?>
                 </option>
             <?php
                 endwhile;
