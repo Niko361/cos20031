@@ -5,11 +5,10 @@
     <meta name="description" content="PreScore" />
     <meta name="keywords" 	 content="HTML, CSS" />
     <meta name="author"		 content="Halim" />
-    <link rel = "stylesheet" href ="styles/style.css">
     <title> Pre Score </title>
   </head>
   <body>
- 	  <?php include 'includes/header.inc'; ?>
+ 	  <?php include 'includes/header.inc.php'; ?>
 	  <?php
 	  	session_start();
 	  	

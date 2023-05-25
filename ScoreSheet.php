@@ -5,7 +5,6 @@
     <meta name="description" content="ScoreSheet" />
     <meta name="keywords" 	 content="HTML, CSS, JS" />
     <meta name="author"		 content="Halim" />
-    <link rel = "stylesheet" href ="styles/style.css">
     <title> Score Sheet </title>
   </head>
     <style>
@@ -44,7 +43,7 @@
     </style>
   <body>
 
- 	  <?php include 'includes/header.inc'; ?>
+ 	  <?php include 'includes/header.inc.php'; ?>
     <?php
     if (isset($_POST["Competition"])){
         $competition = ($_POST["Competition"]);
@@ -61,7 +60,7 @@
        $query = "SELECT `round_def_id` FROM `Competitions` WHERE `competition_id` = '$competition'";
     $Round = mysqli_fetch_array(mysqli_query($conn, $query))['round_def_id'];
     ?>
-    <div class="centred">
+    <div class="container-sm">
     <h1 style="text-align: center">Submit Score</h1>
     <?php
     for($RangeNum=1; $RangeNum<=$RangeCount; $RangeNum++)
