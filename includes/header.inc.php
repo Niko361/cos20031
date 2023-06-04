@@ -16,8 +16,7 @@
                         <div class="navbar-nav">
                               <a class="nav-link" href="index.php">View Scores</a>
                               <a class="nav-link" href="PreScore.php">Enter Score</a>
-                              <a class="nav-link" href="#">Approve Staged Score</a>
-                              <a class="nav-link" href="#">Create Round Definition</a>
+                              <a class="nav-link" href="PreReview.php"> Review Score</a>
                               <a class="nav-link" href="login.php">Log In</a>
                         </div>
                   </div>
